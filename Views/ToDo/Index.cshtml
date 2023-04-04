@@ -1,0 +1,19 @@
+﻿@*
+    For more information on enabling MVC for empty projects, visit https://go.microsoft.com/fwlink/?LinkID=397860
+*@
+@{
+}
+@model List<ToDoItem>
+
+<h1>To-Do List</h1>
+
+<ul>
+    @foreach (var todo in Model)
+    {
+        <li>@todo</li>
+    }
+</ul>
+<form method="post" action="@Url.Action("Add")">
+    <input type="text" name="newItem" />
+    <input type="submit" value="Add Item" />
+</form>
