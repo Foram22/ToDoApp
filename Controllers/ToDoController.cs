@@ -1,6 +1,7 @@
 ﻿using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using ToDoApp.Data;
+using ToDoApp.Migrations;
 using ToDoApp.Models;
 
 namespace ToDoApp.Controllers
@@ -26,22 +27,35 @@ namespace ToDoApp.Controllers
             return View();
         }
 
-        public async Task<IActionResult> Add(ToDoItem item) {
-            _database.ToDos.Add(item);
-            await _database.SaveChangesAsync();
+        public async Task<IActionResult> Add(string newItem) 
+        {
+            if(newItem != null) {
+                var todo = new ToDoItem
+                {
+                    Title = newItem,
+                    IsComplete = false
+                };
+                _database.ToDos.Add(todo);
+                await _database.SaveChangesAsync();
+            }
+            
             return RedirectToAction("Index");
         }
 
         [HttpPost]
-        public async Task<IActionResult> Complete(int id)
+        public IActionResult Complete(IEnumerable<int> isComplete)
         {
-            var todo = await _database.ToDos.FindAsync(id);
-            if (todo == null)
+            if(isComplete != null)
             {
-                return NotFound();
+                foreach (var item in isComplete)
+                {
+                    var todo = _database.ToDos.FirstOrDefault(t => t.Id == item);
+                    if(todo != null) {
+                        todo.IsComplete = true;
+                    }
+                }
+                _database.SaveChanges();
             }
-            todo.IsComplete = true;
-            await _database.SaveChangesAsync();
             return RedirectToAction("Index");
         }
     }

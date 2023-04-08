@@ -7,13 +7,18 @@
 
 <h1>To-Do List</h1>
 
-<ul>
-    @foreach (var todo in Model)
-    {
-        <li>@todo</li>
-    }
-</ul>
 <form method="post" action="@Url.Action("Add")">
     <input type="text" name="newItem" />
     <input type="submit" value="Add Item" />
 </form>
+
+<ul>
+    @foreach (var todo in Model)
+    {
+        <div>
+            <input type="checkbox" name="isComplete" value="@todo.Id" @(todo.IsComplete ? "checked" : "")/>
+            <span>@todo.Title</span>
+        </div>
+    }
+</ul>
+
