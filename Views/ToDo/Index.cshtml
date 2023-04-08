@@ -12,13 +12,16 @@
     <input type="submit" value="Add Item" />
 </form>
 
-<ul>
-    @foreach (var todo in Model)
-    {
-        <div>
-            <input type="checkbox" name="isComplete" value="@todo.Id" @(todo.IsComplete ? "checked" : "")/>
-            <span>@todo.Title</span>
-        </div>
-    }
-</ul>
+
+@foreach (var todo in Model)
+{
+    <div>
+        <input type="checkbox" name="isComplete" value="@todo.Id" @(todo.IsComplete ? "checked" : "")/>
+        <span>@todo.Title</span>
+    </div>
+}
+
+<form method="post" action="@Url.Action("DeleteAll")">
+    <input type="submit" value="Delete All Items"/>
+</form>
 

@@ -58,5 +58,12 @@ namespace ToDoApp.Controllers
             }
             return RedirectToAction("Index");
         }
+
+        public IActionResult DeleteAll()
+        {
+            _database.ToDos.RemoveRange(_database.ToDos);
+            _database.SaveChanges();
+            return RedirectToAction("Index");
+        }
     }
 }
