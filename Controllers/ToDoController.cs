@@ -20,6 +20,12 @@ namespace ToDoApp.Controllers
             return View(todos);
         }
 
+        [HttpGet]
+        public IActionResult Create()
+        {
+            return View();
+        }
+
         public async Task<IActionResult> Add(ToDoItem item) {
             _database.ToDos.Add(item);
             await _database.SaveChangesAsync();

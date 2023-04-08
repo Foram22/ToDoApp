@@ -1,3 +1,5 @@
+using ToDoApp.Data;
+
 namespace ToDoApp
 {
     public class Program
@@ -8,6 +10,7 @@ namespace ToDoApp
 
             // Add services to the container.
             builder.Services.AddControllersWithViews();
+            builder.Services.AddDbContext<ToDoDatabase>();
 
             var app = builder.Build();
 
