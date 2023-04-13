@@ -16,7 +16,7 @@ namespace ToDoApp.Data
         }
 
         protected override void OnConfiguring(DbContextOptionsBuilder options)
-        => options.UseSqlite($"Data Source={DbPath}");
+        => options.UseSqlite($"Data Source=ToDo.db");
 
         public DbSet<ToDoItem> ToDos { get; set; }
 
